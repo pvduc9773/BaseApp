@@ -1,0 +1,132 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs'
+    id 'com.google.dagger.hilt.android'
+
+}
+
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+def versionIncrement = 0
+
+android {
+    compileSdk 33
+    buildToolsVersion "32.0.0"
+
+    defaultConfig {
+        applicationId "com.ducpv"
+        minSdk 24
+        targetSdk 33
+
+        versionCode versionMajor * 100000 + versionMinor * 1000 + versionPatch * 10 + versionIncrement
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "BASE_URL", "\"http://128.199.139.137:8080\""
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "BASE_URL", "\"http://128.199.139.137:8080\""
+        }
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+    }
+}
+
+dependencies {
+    implementation "androidx.core:core-ktx:$core_ktx"
+    implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation "com.google.android.material:material:$material"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh"
+
+    // Jetpack
+    implementation "androidx.recyclerview:recyclerview:$recyclerview"
+    implementation "androidx.lifecycle:lifecycle-common:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle"
+    implementation "androidx.savedstate:savedstate-ktx:$savedstate_ktx"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav"
+    implementation "androidx.navigation:navigation-runtime-ktx:$nav"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines"
+
+    // Retrofit
+    implementation "com.squareup.okhttp3:okhttp:$okhttp3"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.google.code.gson:gson:$gson"
+
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:$datastore_preferences"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide"
+    kapt "com.github.bumptech.glide:compiler:$glide"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$dagger_hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$dagger_hilt"
+
+    // Eventbus
+    implementation "org.greenrobot:eventbus:$eventbus"
+
+    // Testing
+    testImplementation "com.google.truth:truth:$truth"
+    androidTestImplementation "androidx.test.ext:truth:$truth_ext"
+
+    testImplementation "junit:junit:$junit"
+    testImplementation "android.arch.core:core-testing:$android_core_testing"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext_junit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
+
+    androidTestImplementation "androidx.test:core-ktx:$androidx_test"
+    androidTestImplementation "androidx.test:runner:$androidx_test"
+    androidTestImplementation "androidx.test:rules:$androidx_test"
+    androidTestImplementation "androidx.arch.core:core-testing:$androidx_core_testing"
+
+    testImplementation "io.mockk:mockk:$mockk"
+    androidTestImplementation "io.mockk:mockk-android:$mockk"
+}
+
+kapt {
+    correctErrorTypes true
+}
