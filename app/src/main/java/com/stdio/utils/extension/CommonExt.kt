@@ -35,13 +35,6 @@ inline fun <T, R> T.runCatching(block: T.() -> Response<R>): Result<R> {
     }
 }
 
-inline fun <T, R> T.runCatchingToValue(block: T.() -> Response<R>): R? {
-    return when (val result = runCatching { block() }) {
-        is Result.Success -> result.value
-        is Result.Error -> null
-    }
-}
-
 fun Exception.toErrorResult() =
     when (this) {
         is HttpException -> {

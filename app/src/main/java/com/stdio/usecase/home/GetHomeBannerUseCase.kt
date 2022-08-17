@@ -2,10 +2,9 @@ package com.stdio.usecase.home
 
 import com.stdio.model.Banner
 import com.stdio.repository.HomeRepository
+import com.stdio.repository.Result
 import com.stdio.usecase.UseCase
-import com.stdio.utils.extension.runCatchingToValue
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.channelFlow
+import com.stdio.utils.extension.runCatching
 import javax.inject.Inject
 
 /**
@@ -13,11 +12,14 @@ import javax.inject.Inject
  */
 class GetHomeBannerUseCase @Inject constructor(
     private val homeRepository: HomeRepository
-) : UseCase<Flow<List<Banner>>>() {
-    override suspend fun execute(vararg params: Any): Flow<List<Banner>> = channelFlow {
-        val banners = runCatchingToValue {
+) : UseCase<List<Banner>>() {
+    override suspend fun execute(vararg params: Any): List<Banner> {
+        val res = runCatching {
             homeRepository.getHomeBanner()
-        }?.result.orEmpty()
-        send(banners)
+        }
+        return when (res) {
+            is Result.Success -> res.value?.result.orEmpty()
+            is Result.Error -> emptyList()
+        }
     }
 }

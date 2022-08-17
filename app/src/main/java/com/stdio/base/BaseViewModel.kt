@@ -2,7 +2,10 @@ package com.stdio.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.stdio.repository.Result
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
 
 /**
@@ -25,6 +28,28 @@ abstract class BaseViewModel : ViewModel() {
     ): Job {
         return viewModelScope.launch(coroutineExceptionHandler + dispatcher) {
             block()
+        }
+    }
+
+    suspend fun <T> Flow<Result<T>>.subscribe(
+        onSuccess: suspend (T?) -> Unit,
+        onError: suspend (String?) -> Unit
+    ) {
+        this.collectLatest {
+            when (it) {
+                is Result.Success -> onSuccess.invoke(it.value)
+                is Result.Error -> onError.invoke(it.message)
+            }
+        }
+    }
+
+    suspend fun <T> Result<T>.subscribe(
+        onSuccess: suspend (T?) -> Unit,
+        onError: suspend (String?) -> Unit
+    ) {
+        when (this) {
+            is Result.Success -> onSuccess.invoke(value)
+            is Result.Error -> onError.invoke(message)
         }
     }
 }
