@@ -6,7 +6,6 @@ import com.stdio.repository.ErrorCode
 import com.stdio.repository.Response
 import com.stdio.repository.Result
 import retrofit2.HttpException
-import timber.log.Timber
 import java.io.IOException
 import java.net.SocketTimeoutException
 
@@ -25,12 +24,10 @@ inline fun <T, R> T.runCatching(block: T.() -> Response<R>): Result<R> {
             Result.Success(response.data)
         } else {
             val errorResult = response.toErrorResult()
-            Timber.e(errorResult.message)
             errorResult
         }
     } catch (ex: Exception) {
         val errorResult = ex.toErrorResult()
-        Timber.e(errorResult.message)
         errorResult
     }
 }

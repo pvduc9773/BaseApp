@@ -8,6 +8,7 @@ import com.stdio.usecase.home.GetHomeBannerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
@@ -43,8 +44,7 @@ class MainViewModel @Inject constructor(
             email = "pvduc9773@gmail.com",
             password = "demodemo"
         )
-        val result = signInAccountUseCase.execute(signInAccountRequest)
-        result.subscribe(
+        signInAccountUseCase.execute(signInAccountRequest).subscribe(
             onSuccess = {
                 _uiState.update { state ->
                     state.copy(

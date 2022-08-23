@@ -35,6 +35,14 @@ class PrefsDataStoreRepositoryImpl @Inject constructor(
         private val KEY_USER_INFO = stringPreferencesKey("key_user_info")
     }
 
+    private suspend fun clear(key: Preferences.Key<String>) {
+        dataStore.edit { it.remove(key) }
+    }
+
+    private suspend fun clearAll() {
+        dataStore.edit { it.clear() }
+    }
+
     private suspend fun <T> get(key: Preferences.Key<T>): T? {
         return dataStore.data.map { it[key] }.firstOrNull()
     }
@@ -42,10 +50,6 @@ class PrefsDataStoreRepositoryImpl @Inject constructor(
     private suspend inline fun <reified T> getObject(key: Preferences.Key<String>): T? {
         val json = get(key)
         return gson.fromJson<T>(json)
-    }
-
-    private suspend fun clear(key: Preferences.Key<String>) {
-        dataStore.edit { it.remove(key) }
     }
 
     private suspend fun <T> set(key: Preferences.Key<T>, value: T) {

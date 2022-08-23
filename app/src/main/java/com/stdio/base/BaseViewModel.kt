@@ -2,6 +2,7 @@ package com.stdio.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.stdio.repository.ErrorCode
 import com.stdio.repository.Result
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -49,7 +50,15 @@ abstract class BaseViewModel : ViewModel() {
     ) {
         when (this) {
             is Result.Success -> onSuccess.invoke(value)
-            is Result.Error -> onError.invoke(message)
+            is Result.Error -> {
+                when (code) {
+                    ErrorCode.NETWORK.code -> {
+                        // TODO handle network error
+                    }
+
+                }
+                onError.invoke(message)
+            }
         }
     }
 }
