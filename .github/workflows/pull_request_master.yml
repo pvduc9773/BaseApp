@@ -1,0 +1,86 @@
+name: Push Code Master
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  setup:
+    name: Setup Env
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Setup Android SDK Tools
+        uses: android-actions/setup-android@v2.0.2
+
+  ktlint:
+    name: Run KtLint Check Code
+    needs: [ setup ]
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: gradle/gradle-build-action@v2
+
+      - name: Run KtLint
+        run: ./gradlew ktlint
+
+  unittest:
+    name: Run Unit Test
+    needs: [ setup ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: gradle/gradle-build-action@v2
+
+      - name: Run unit test
+        run: ./gradlew testDevelopDebugUnitTest
+
+#   build:
+#     name: Build And Deploy APK
+#     runs-on: ubuntu-latest
+#     needs: [ ktlint, unittest ]
+#     # Steps represent the sequence of tasks using shell runners that will be executed as part of the Job
+#     steps:
+#       - uses: actions/checkout@v3
+
+#       - uses: gradle/gradle-build-action@v2
+
+#       - name: Generate DevelopRelease APK
+#         env:
+#           VERSION_NAME_EXT: ${{ github.head_ref }}-${{ github.run_number }}
+#           GITHUB_PACKAGE_USERNAME: bitkey-bot
+#           GITHUB_PACKAGE_TOKEN: ${{ secrets.BITKEY_SERVICE_NPM_TOKEN }}
+#         run: ./gradlew assembleDevelopRelease --stacktrace
+
+#       - uses: r0adkll/sign-android-release@v1
+#         name: Sign app APK
+#         id: sign_app
+#         if: ${{ github.actor != 'dependabot[bot]' }}
+#         with:
+#           releaseDirectory: app/build/outputs/apk/develop/release
+#           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+#           alias: ${{ secrets.ALIAS }}
+#           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+#           keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+#       - name: upload artifact to Firebase App Distribution
+#         uses: wzieba/Firebase-Distribution-Github-Action@v1
+#         if: ${{ github.actor != 'dependabot[bot]' }}
+#         with:
+#           appId: ${{secrets.FIREBASE_DEV_APP_ID}}
+#           token: ${{secrets.FIREBASE_DEV_TOKEN}}
+#           groups: workhubAppDevTester
+#           releaseNotes: ${{ github.event.pull_request.title }}
+#           file: ${{steps.sign_app.outputs.signedReleaseFile}}
