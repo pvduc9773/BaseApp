@@ -1,7 +1,6 @@
 package com.ducpv.di
 
 import android.content.Context
-import com.google.gson.Gson
 import com.ducpv.repository.AuthRepository
 import com.ducpv.repository.AuthRepositoryImpl
 import com.ducpv.repository.HomeRepository
@@ -11,6 +10,7 @@ import com.ducpv.repository.preferstore.PrefsDataStoreRepositoryImpl
 import com.ducpv.repository.preferstore.dataStore
 import com.ducpv.service.AuthService
 import com.ducpv.service.HomeService
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

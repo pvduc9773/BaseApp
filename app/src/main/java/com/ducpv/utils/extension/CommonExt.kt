@@ -1,10 +1,10 @@
 package com.ducpv.utils.extension
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.ducpv.repository.ErrorType
 import com.ducpv.repository.Response
 import com.ducpv.repository.Result
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException

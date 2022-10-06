@@ -56,6 +56,13 @@ android {
         jvmTarget = JavaVersion.VERSION_11
         freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
+
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -127,6 +134,4 @@ dependencies {
     androidTestImplementation "io.mockk:mockk-android:$mockk"
 }
 
-kapt {
-    correctErrorTypes true
-}
+apply from: './ktlint.gradle'

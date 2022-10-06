@@ -5,8 +5,8 @@ package com.ducpv.model
  */
 data class AccountSession(
     val accessToken: String,
-    val tokenType: String,
     val refreshToken: String,
+    val tokenType: String,
     val userId: String,
     val expired: Long,
 )
