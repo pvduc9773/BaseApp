@@ -3,8 +3,8 @@ package com.ducpv
 import androidx.lifecycle.asLiveData
 import com.ducpv.base.BaseViewModel
 import com.ducpv.model.paramaters.SignInAccountBody
-import com.ducpv.usecase.auth.SignInAccountUseCase
-import com.ducpv.usecase.home.GetHomeBannerUseCase
+import com.ducpv.usecase.auth.SignInAccountBaseUseCase
+import com.ducpv.usecase.home.GetHomeBannerBaseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,8 +21,8 @@ data class MainUiState(
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val signInAccountUseCase: SignInAccountUseCase,
-    private val getHomeBannerUseCase: GetHomeBannerUseCase,
+    private val signInAccountUseCase: SignInAccountBaseUseCase,
+    private val getHomeBannerUseCase: GetHomeBannerBaseUseCase,
 ) : BaseViewModel() {
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState = _uiState.asLiveData()

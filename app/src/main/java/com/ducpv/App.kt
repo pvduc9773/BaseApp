@@ -1,7 +1,6 @@
 package com.ducpv
 
 import android.app.Application
-import com.ducpv.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
