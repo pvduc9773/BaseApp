@@ -3,13 +3,10 @@ package com.ducpv.di
 import android.content.Context
 import com.ducpv.repository.AuthRepository
 import com.ducpv.repository.AuthRepositoryImpl
-import com.ducpv.repository.HomeRepository
-import com.ducpv.repository.HomeRepositoryImpl
 import com.ducpv.repository.preferstore.PrefsDataStoreRepository
 import com.ducpv.repository.preferstore.PrefsDataStoreRepositoryImpl
 import com.ducpv.repository.preferstore.dataStore
 import com.ducpv.service.AuthService
-import com.ducpv.service.HomeService
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -34,11 +31,5 @@ object RepositoryModule {
     @Singleton
     fun provideAuthRepository(authService: AuthService): AuthRepository {
         return AuthRepositoryImpl(authService)
-    }
-
-    @Provides
-    @Singleton
-    fun provideHomeRepository(homeService: HomeService): HomeRepository {
-        return HomeRepositoryImpl(homeService)
     }
 }

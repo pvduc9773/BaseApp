@@ -1,30 +1,37 @@
 package com.ducpv
 
+import android.view.View
 import androidx.lifecycle.asLiveData
 import com.ducpv.base.BaseViewModel
 import com.ducpv.model.paramaters.SignInAccountBody
-import com.ducpv.usecase.auth.SignInAccountBaseUseCase
-import com.ducpv.usecase.home.GetHomeBannerBaseUseCase
+import com.ducpv.usecase.auth.SignInAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 /**
  * Created by pvduc9773 on 26/07/2022.
  */
-data class MainUiState(
-    val isLoading: Boolean = true,
-    val message: String? = null
-)
+sealed class MainUiState(val isLoading: Boolean) {
+    object Loading : MainUiState(isLoading = true)
+    class Success(val data: String?) : MainUiState(isLoading = false)
+    class Error(val message: String?) : MainUiState(isLoading = false)
+
+    val isVisibleLoading: Int get() = if (this is Loading) View.VISIBLE else View.GONE
+    val isVisibleMessage: Int get() = if (this !is Loading) View.VISIBLE else View.GONE
+    val messageContent: String?
+        get() = when (this) {
+            is Success -> data
+            is Error -> message
+            else -> null
+        }
+}
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val signInAccountUseCase: SignInAccountBaseUseCase,
-    private val getHomeBannerUseCase: GetHomeBannerBaseUseCase,
+    private val signInAccountUseCase: SignInAccountUseCase,
 ) : BaseViewModel() {
-    private val _uiState = MutableStateFlow(MainUiState())
+    private val _uiState = MutableStateFlow<MainUiState>(MainUiState.Loading)
     val uiState = _uiState.asLiveData()
 
     init {
@@ -36,38 +43,16 @@ class MainViewModel @Inject constructor(
     private suspend fun signInAccount() {
         val signInAccountBody = SignInAccountBody(
             email = "pvduc9773@gmail.com",
-            password = "demodemo"
+            password = "ASDqwe123@"
         )
         signInAccountUseCase.execute(signInAccountBody)
             .subscribe(
                 onSuccess = {
-                    _uiState.update { state ->
-                        state.copy(
-                            isLoading = it?.accessToken != null,
-                            message = it?.accessToken
-                        )
-                    }
-                    delay(2000)
-                    getHomeBanner()
+                    _uiState.value = MainUiState.Success(it?.accessToken)
                 },
-                onError = {
-                    _uiState.update { state ->
-                        state.copy(
-                            isLoading = false,
-                            message = it
-                        )
-                    }
+                onFailed = {
+                    _uiState.value = MainUiState.Error(it)
                 }
             )
-    }
-
-    private suspend fun getHomeBanner() {
-        val banners = getHomeBannerUseCase.execute()
-        _uiState.update { state ->
-            state.copy(
-                isLoading = false,
-                message = banners.toString()
-            )
-        }
     }
 }

@@ -20,6 +20,7 @@ import javax.inject.Inject
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "ducpv")
 
 interface PrefsDataStoreRepository {
+    suspend fun clearAccountSession()
     suspend fun setAccountSession(accountSession: AccountSession?)
     suspend fun getAccountSession(): AccountSession?
     suspend fun setUserInfo(userInfo: User?)
@@ -54,6 +55,10 @@ class PrefsDataStoreRepositoryImpl @Inject constructor(
 
     private suspend fun setObject(key: Preferences.Key<String>, value: Any) {
         set(key, gson.toJson(value))
+    }
+
+    override suspend fun clearAccountSession() {
+        clear(PREFERENCES_KEY_ACCOUNT_SESSION)
     }
 
     override suspend fun setAccountSession(accountSession: AccountSession?) {
