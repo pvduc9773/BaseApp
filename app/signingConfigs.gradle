@@ -1,0 +1,8 @@
+signingConfigs {
+  release {
+    storeFile file('release.keystore')
+    storePassword '123123'
+    keyAlias 'base-app'
+    keyPassword '123123'
+  }
+}

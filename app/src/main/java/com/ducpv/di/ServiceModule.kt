@@ -5,7 +5,6 @@ import com.ducpv.repository.preferstore.PrefsDataStoreRepository
 import com.ducpv.repository.preferstore.getAccessToken
 import com.ducpv.repository.preferstore.getTokenType
 import com.ducpv.service.AuthService
-import com.ducpv.service.HomeService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -78,9 +77,4 @@ object ServiceModule {
     @Singleton
     fun provideAuthService(retrofit: Retrofit): AuthService =
         retrofit.create(AuthService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideHomeService(retrofit: Retrofit): HomeService =
-        retrofit.create(HomeService::class.java)
 }

@@ -5,7 +5,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs'
     id 'com.google.dagger.hilt.android'
-
+    id 'com.google.firebase.crashlytics'
 }
 
 def versionMajor = 1
@@ -28,18 +28,21 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    apply from: 'signingConfigs.gradle', to: android
     buildTypes {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", "BASE_URL", "\"http://128.199.139.137:8080\""
+            buildConfigField "String", "BASE_URL", "\"https://www.be.dapass.kr\""
         }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", "BASE_URL", "\"http://128.199.139.137:8080\""
+            buildConfigField "String", "BASE_URL", "\"https://www.be.dapass.kr\""
+
+            signingConfig signingConfigs.release
         }
     }
 
@@ -98,6 +101,11 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
     implementation "com.google.code.gson:gson:$gson"
 
+    // Firebase
+    implementation platform("com.google.firebase:firebase-bom:$firebase")
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+
     // DataStore
     implementation "androidx.datastore:datastore-preferences:$datastore_preferences"
 
@@ -133,5 +141,7 @@ dependencies {
     testImplementation "io.mockk:mockk:$mockk"
     androidTestImplementation "io.mockk:mockk-android:$mockk"
 }
+
+apply plugin: 'com.google.gms.google-services'
 
 apply from: './ktlint.gradle'

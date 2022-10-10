@@ -5,10 +5,7 @@ package com.ducpv.repository
  */
 sealed class Result<out T> {
     class Success<T>(val value: T?) : Result<T>()
-    class Error(
-        val code: Int = ErrorType.UNKNOWN.code,
-        val message: String? = null
-    ) : Result<Nothing>()
+    class Error(val code: Int = -1, val message: String? = null) : Result<Nothing>()
 }
 
 enum class ErrorType(val code: Int) {

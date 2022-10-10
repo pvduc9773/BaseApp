@@ -1,4 +1,4 @@
-name: Run workflows pull request master
+name: Run Workflows Deploy Debug App
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -52,3 +52,26 @@ jobs:
 
       - name: Run unit test
         run: ./gradlew testDebugUnitTest
+
+  build-and-deploy-debug-app:
+    name: Build & Deploy Debug App
+    needs: [ setup, ktlint, unittest ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: gradle/gradle-build-action@v2
+        with:
+          cache-read-only: true
+
+      - name: Generate Debug App
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK on Build Artifacts
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          file: app/build/outputs/apk/debug/app-debug.apk
+          releaseNotes: ${{ github.event.pull_request.title }}

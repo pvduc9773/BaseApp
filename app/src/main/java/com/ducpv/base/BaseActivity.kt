@@ -27,8 +27,8 @@ abstract class BaseActivity<T : BaseViewModel, B : ViewDataBinding> : AppCompatA
         }
         setContentView(binding.root)
         initialize()
-        observeViewModel()
         viewBinding()
+        observeViewModel()
         events()
     }
 }
