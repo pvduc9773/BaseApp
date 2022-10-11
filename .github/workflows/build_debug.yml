@@ -1,4 +1,4 @@
-name: Run Workflows Deploy Debug App
+name: Run Deploy Debug App
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,7 +21,7 @@ jobs:
           java-version: 11
 
       - name: Setup Android SDK Tools
-        uses: android-actions/setup-android@v2.0.2
+        uses: android-actions/setup-android@v2
 
   ktlint:
     name: Run KtLint Check Code

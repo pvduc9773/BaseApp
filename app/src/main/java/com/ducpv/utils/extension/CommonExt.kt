@@ -14,7 +14,7 @@ import java.net.SocketTimeoutException
  */
 inline fun <reified T> Gson.fromJson(json: String?): T? = fromJson(json, object : TypeToken<T>() {}.type)
 
-inline fun <T, R> T.executeResponse(block: T.() -> Response<R>): Result<R> =
+inline fun <T, R> T.execute(block: T.() -> Response<R>): Result<R> =
     try {
         val response = block()
         if (response.isSuccessful) {

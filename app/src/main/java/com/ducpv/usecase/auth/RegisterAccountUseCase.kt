@@ -5,7 +5,7 @@ import com.ducpv.model.paramaters.RegisterAccountBody
 import com.ducpv.repository.AuthRepository
 import com.ducpv.repository.Result
 import com.ducpv.usecase.UseCase
-import com.ducpv.utils.extension.executeResponse
+import com.ducpv.utils.extension.execute
 import javax.inject.Inject
 
 /**
@@ -15,7 +15,7 @@ class RegisterAccountUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) : UseCase<Result<RegisterAccount>>() {
     override suspend fun execute(vararg params: Any): Result<RegisterAccount> {
-        return executeResponse {
+        return execute {
             authRepository.registerAccount(params[0] as RegisterAccountBody)
         }
     }

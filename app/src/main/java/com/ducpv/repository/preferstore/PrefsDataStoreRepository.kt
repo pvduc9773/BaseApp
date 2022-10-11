@@ -17,7 +17,7 @@ import javax.inject.Inject
 /**
  * Created by pvduc9773 on 08/08/2022.
  */
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "ducpv")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "base-app")
 
 interface PrefsDataStoreRepository {
     suspend fun clearAccountSession()

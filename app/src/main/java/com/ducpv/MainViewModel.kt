@@ -12,10 +12,10 @@ import javax.inject.Inject
 /**
  * Created by pvduc9773 on 26/07/2022.
  */
-sealed class MainUiState(val isLoading: Boolean) {
-    object Loading : MainUiState(isLoading = true)
-    class Success(val data: String?) : MainUiState(isLoading = false)
-    class Error(val message: String?) : MainUiState(isLoading = false)
+sealed class MainUiState {
+    object Loading : MainUiState()
+    class Success(val data: String?) : MainUiState()
+    class Error(val message: String?) : MainUiState()
 
     val isVisibleLoading: Int get() = if (this is Loading) View.VISIBLE else View.GONE
     val isVisibleMessage: Int get() = if (this !is Loading) View.VISIBLE else View.GONE
