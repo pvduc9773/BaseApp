@@ -14,22 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "233913022125-gae3cq7i18gt36ue6l1dt06ho09365pr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ducpv",
-            "certificate_hash": "b4125f54621e619108f7ce7438392415362d2c95"
-          }
-        },
-        {
-          "client_id": "233913022125-k4f94uvda8a1nvol6o6qebbp75vr796u.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ducpv",
-            "certificate_hash": "527b3e50ca3a02eae1c6c4717c1774eb2ddb8f4e"
-          }
-        },
-        {
           "client_id": "233913022125-pllu6nn67eg76u0jja98p9ind0laousv.apps.googleusercontent.com",
           "client_type": 3
         }

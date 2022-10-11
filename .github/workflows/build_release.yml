@@ -1,4 +1,4 @@
-name: Run Workflows Deploy Release App
+name: Workflows Deploy Release App
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,7 +21,7 @@ jobs:
           java-version: 11
 
       - name: Setup Android SDK Tools
-        uses: android-actions/setup-android@v2.0.2
+        uses: android-actions/setup-android@v2
 
   ktlint:
     name: Run KtLint Check Code
@@ -64,7 +64,7 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Upload APK on Build Artifacts
+      - name: Upload APK Build on Firebase Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_APP_ID }}
