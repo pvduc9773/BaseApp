@@ -16,4 +16,11 @@ task ktlint(type: JavaExec, group: "verification") {
     args "src/**/*.kt"
 }
 
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    classpath = configurations.ktlint
+    mainClass.set("com.pinterest.ktlint.Main")
+    args "-F", "src/**/*.kt"
+}
+
 check.dependsOn ktlint

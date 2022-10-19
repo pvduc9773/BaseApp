@@ -84,6 +84,13 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle"
     implementation "androidx.savedstate:savedstate-ktx:$savedstate_ktx"
 
+    // CameraX
+    implementation "androidx.camera:camera-core:$camerax"
+    implementation "androidx.camera:camera-camera2:$camerax"
+    implementation "androidx.camera:camera-lifecycle:$camerax"
+    implementation "androidx.camera:camera-video:$camerax"
+    implementation "androidx.camera:camera-view:$camerax"
+
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav"
     implementation "androidx.navigation:navigation-ui-ktx:$nav"
@@ -122,6 +129,13 @@ dependencies {
 
     // Eventbus
     implementation "org.greenrobot:eventbus:$eventbus"
+
+    // PhotoView
+    implementation "com.github.chrisbanes:PhotoView:$photo_view"
+
+    // MLKit
+    implementation "com.google.mlkit:camera:$ml_camera"
+    implementation "com.google.mlkit:face-detection:$ml_face_detection"
 
     // Testing
     testImplementation "com.google.truth:truth:$truth"

@@ -1,2 +1,2 @@
-rootProject.name = "base-app-android"
+rootProject.name = "base"
 include ':app'

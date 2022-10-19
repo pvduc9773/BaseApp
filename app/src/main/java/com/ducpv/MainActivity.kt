@@ -7,13 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
+    override val viewModel by viewModels<MainViewModel>()
 
-    override val viewModel: MainViewModel by viewModels()
-
-    override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-
-    override fun viewBinding() {
-        super.viewBinding()
-        binding.viewModel = viewModel
-    }
+    override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 }

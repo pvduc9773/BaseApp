@@ -3,6 +3,7 @@
     package="com.ducpv">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="com.ducpv.App"
@@ -18,10 +19,12 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.ducpv.module.facedetect.FaceDetectActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
