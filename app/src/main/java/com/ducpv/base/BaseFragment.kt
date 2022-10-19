@@ -29,9 +29,7 @@ abstract class BaseFragment<T : BaseViewModel, B : ViewDataBinding> : Fragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = getViewBinding().apply {
-            root.setOnClickListener { handleTouchOutSide(it) }
-        }
+        binding = getViewBinding()
     }
 
     override fun onCreateView(

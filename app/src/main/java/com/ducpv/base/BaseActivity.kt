@@ -22,9 +22,8 @@ abstract class BaseActivity<T : BaseViewModel, B : ViewDataBinding> : AppCompatA
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        binding = getViewBinding().apply {
-            lifecycleOwner = this@BaseActivity
-        }
+        binding = getViewBinding()
+        binding.lifecycleOwner = this
         setContentView(binding.root)
         initialize()
         viewBinding()

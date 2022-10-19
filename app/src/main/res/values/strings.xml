@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">BaseApp</string>
+    <string name="app_name">Base</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="face_detect">Face Detect</string>
+    <string name="message_request_camera_permission_in_setting">Please allow access to the camera in the settings screen.</string>
 </resources>
