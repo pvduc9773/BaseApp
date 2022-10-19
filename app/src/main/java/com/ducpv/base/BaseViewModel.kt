@@ -2,7 +2,6 @@ package com.ducpv.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ducpv.repository.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -19,22 +18,12 @@ abstract class BaseViewModel : ViewModel() {
         Timber.e("coroutineException: $e")
     }
 
-    protected fun coroutineLaunch(
+    protected fun onLaunchCoroutine(
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
         executeBlock: suspend CoroutineScope.() -> Unit
     ): Job {
         return viewModelScope.launch(coroutineExceptionHandler + dispatcher) {
             executeBlock()
-        }
-    }
-
-    suspend fun <T> Result<T>.subscribe(
-        onSuccess: suspend (T?) -> Unit,
-        onFailed: suspend (String?) -> Unit
-    ) {
-        when (this) {
-            is Result.Success -> onSuccess.invoke(value)
-            is Result.Error -> onFailed.invoke(message)
         }
     }
 }

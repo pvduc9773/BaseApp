@@ -2,9 +2,7 @@ package com.ducpv.di
 
 import com.ducpv.BuildConfig
 import com.ducpv.repository.preferstore.PrefsDataStoreRepository
-import com.ducpv.repository.preferstore.getAccessToken
-import com.ducpv.repository.preferstore.getTokenType
-import com.ducpv.service.AuthService
+import com.ducpv.service.Service
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +14,6 @@ import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -43,14 +40,13 @@ object ServiceModule {
         }
         okHttpClient.addInterceptor(httpLoggingInterceptor)
         runBlocking {
-            val tokenType = prefsDataStoreRepository.getTokenType() ?: return@runBlocking
-            val accessToken = prefsDataStoreRepository.getAccessToken() ?: return@runBlocking
+            val accessToken = "accessToken" // prefsDataStoreRepository.getAccessToken() ?: return@runBlocking
             okHttpClient.addInterceptor(
                 Interceptor { chain ->
                     val request: Request = chain
                         .request()
                         .newBuilder()
-                        .addHeader(Authorization, tokenType + accessToken)
+                        .addHeader(Authorization, accessToken)
                         .build()
                     chain.proceed(request)
                 }
@@ -69,12 +65,11 @@ object ServiceModule {
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
     @Provides
     @Singleton
-    fun provideAuthService(retrofit: Retrofit): AuthService =
-        retrofit.create(AuthService::class.java)
+    fun provideService(retrofit: Retrofit): Service =
+        retrofit.create(Service::class.java)
 }
