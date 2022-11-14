@@ -1,13 +1,23 @@
 package com.ducpv
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import com.ducpv.base.BaseActivity
-import com.ducpv.databinding.ActivityMainBinding
+import androidx.compose.material.MaterialTheme
+import com.ducpv.ui.AppContent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
-    override val viewModel by viewModels<MainViewModel>()
+class MainActivity : ComponentActivity() {
+    val viewModel by viewModels<MainViewModel>()
 
-    override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MaterialTheme {
+                AppContent()
+            }
+        }
+    }
 }

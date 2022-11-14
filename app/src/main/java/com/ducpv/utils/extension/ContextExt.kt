@@ -33,8 +33,27 @@ fun Context.showToast(message: String) {
 
 fun Context.showRationaleDialog(
     @StringRes message: Int,
-    @StringRes positive: Int = R.string.ok,
-    @StringRes negative: Int = R.string.cancel,
+    @StringRes positive: Int,
+    @StringRes negative: Int,
+    onPositiveListener: () -> Unit,
+    onNegativeListener: (() -> Unit)? = null
+) {
+    CommonDialog.materialBuilder(this)
+        .setMessage(message)
+        .setPositiveButton(positive, onPositiveListener)
+        .setNegativeButton(negative)
+        .apply {
+            if (onNegativeListener != null) {
+                setNegativeButton(negative, onNegativeListener)
+            }
+        }
+        .show()
+}
+
+fun Context.showRationaleDialog(
+    message: String,
+    positive: String,
+    negative: String,
     onPositiveListener: () -> Unit,
     onNegativeListener: (() -> Unit)? = null
 ) {

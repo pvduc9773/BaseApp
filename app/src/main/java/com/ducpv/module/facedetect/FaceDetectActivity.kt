@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FaceDetectActivity : BaseActivity<FaceDetectViewModel, ActivityFaceDetectBinding>() {
     private val navController by lazy {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFaceDetect) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHost) as NavHostFragment
         navHostFragment.navController
     }
     private val appBarConfiguration by lazy {
