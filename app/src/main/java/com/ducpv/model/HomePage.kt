@@ -11,11 +11,13 @@ data class HomePage(
 )
 
 data class Banner(
-    val name: String,
-    val image: String
+    @SerializedName("_id") val id: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("image") val image: String
 )
 
 data class Category(
-    val name: String,
-    val avatar: String
+    @SerializedName("_id") val id: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("avatar") val avatar: String
 )

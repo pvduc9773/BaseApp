@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId "com.ducpv"
-        minSdk 24
+        minSdk 26
         targetSdk 33
 
         versionCode versionMajor * 100000 + versionMinor * 1000 + versionPatch * 10 + versionIncrement
@@ -90,13 +90,12 @@ dependencies {
     implementation "androidx.savedstate:savedstate-ktx:$savedstate_ktx"
 
     // Compose
-    implementation platform("androidx.compose:compose-bom:2022.10.00")
-    implementation "androidx.compose.material:material"
-    implementation "androidx.compose.ui:ui"
-    implementation "androidx.compose.ui:ui-tooling"
-    implementation "androidx.compose.ui:ui-tooling-preview"
-    implementation "androidx.compose.runtime:runtime"
-    implementation "androidx.compose.runtime:runtime-livedata"
+    implementation "androidx.compose.material:material:$compose_material2"
+    implementation "androidx.compose.ui:ui:$compose_material2"
+    implementation "androidx.compose.ui:ui-tooling:$compose_material2"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_material2"
+    implementation "androidx.compose.runtime:runtime:$compose_material2"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_material2"
 
     implementation "androidx.activity:activity-compose:$activity"
 

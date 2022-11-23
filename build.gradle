@@ -24,6 +24,7 @@ buildscript {
 
         // Compose
         compose_bom = '2022.10.00'
+        compose_material2 = '1.4.0-alpha02'
         compose_coil = '2.2.2'
         compose_accompanist = '0.27.0'
 

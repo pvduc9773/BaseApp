@@ -11,10 +11,12 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="0dp" />
+            android:background="@color/white"
+            android:elevation="4dp"
+            app:navigationIconTint="@color/black"
+            app:titleTextColor="@color/black" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/navHost"
@@ -22,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_main" />
+            app:navGraph="@navigation/nav_face_detect" />
 
     </LinearLayout>
 

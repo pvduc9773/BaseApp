@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">JetpackComposeApp</string>
+    <string name="app_name">Android</string>
+    <string name="face_detect">Face detect</string>
+    <string name="jetpack_compose">Jetpack compose</string>
+    <string name="loading">Loading…</string>
+    <string name="newest_products">Newest products</string>
+    <string name="suggest_for_you">Suggest for you</string>
+    <string name="top_shops">Top shops</string>
+    <string name="top_products">Top products</string>
 </resources>
