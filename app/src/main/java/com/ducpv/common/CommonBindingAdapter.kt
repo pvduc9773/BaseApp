@@ -4,7 +4,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter
-import com.ducpv.utils.extension.loadImage
+import com.ducpv.extension.loadImage
 import java.io.File
 
 /**

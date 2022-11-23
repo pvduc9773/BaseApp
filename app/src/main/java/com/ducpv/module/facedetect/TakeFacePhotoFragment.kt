@@ -13,17 +13,17 @@ import androidx.core.content.ContextCompat
 import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.ducpv.R
 import com.ducpv.base.BaseFragment
 import com.ducpv.databinding.FragmentTakeFacePhotoBinding
+import com.ducpv.extension.fitsSystemWindows
+import com.ducpv.extension.isPermissionGranted
+import com.ducpv.extension.showRationaleDialog
 import com.ducpv.module.facedetect.analyzer.FaceDetectionAnalyzer
 import com.ducpv.utils.defaultNavOptions
-import com.ducpv.utils.extension.isPermissionGranted
-import com.ducpv.utils.extension.showRationaleDialog
 import com.ducpv.utils.settingsIntent
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import java.io.File
+import timber.log.Timber
 
 /**
  * Created by pvduc9773 on 20/10/2022.
@@ -53,25 +53,28 @@ class TakeFacePhotoFragment : BaseFragment<TakeFacePhotoViewModel, FragmentTakeF
         }
     }
 
-    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-        if (granted) {
-            bindAllCameraUseCase()
-        } else {
-            if (!shouldShowRequestPermissionRationale(cameraPermission)) {
-                requireContext().showRationaleDialog(
-                    message = R.string.message_request_camera_permission_in_setting,
-                    onPositiveListener = {
-                        settingsLauncher.launch(settingsIntent)
-                    },
-                    onNegativeListener = {
-                        requireActivity().finish()
-                    }
-                )
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (granted) {
+                bindAllCameraUseCase()
             } else {
-                requireActivity().finish()
+                if (!shouldShowRequestPermissionRationale(cameraPermission)) {
+                    requireContext().showRationaleDialog(
+                        message = "Vui lòng cho phép truy cập vào máy ảnh trong màn hình Cài đặt.",
+                        positive = "Đồng ý",
+                        negative = "Bỏ qua",
+                        onPositiveListener = {
+                            settingsLauncher.launch(settingsIntent)
+                        },
+                        onNegativeListener = {
+                            requireActivity().finish()
+                        }
+                    )
+                } else {
+                    requireActivity().finish()
+                }
             }
         }
-    }
 
     override val viewModel by viewModels<TakeFacePhotoViewModel>()
 
@@ -84,11 +87,13 @@ class TakeFacePhotoFragment : BaseFragment<TakeFacePhotoViewModel, FragmentTakeF
 
     override fun viewBinding() {
         super.viewBinding()
+
         previewView = binding.preview
         viewModel.processCameraProvider.observe(viewLifecycleOwner) { processCameraProvider ->
             cameraProvider = processCameraProvider
             bindAllCameraUseCase()
         }
+
         binding.preview.setOnClickListener {
             captureImage()
         }
@@ -96,13 +101,15 @@ class TakeFacePhotoFragment : BaseFragment<TakeFacePhotoViewModel, FragmentTakeF
 
     override fun onResume() {
         super.onResume()
+        requireActivity().fitsSystemWindows(true)
         bindAllCameraUseCase()
     }
 
     override fun onPause() {
         super.onPause()
-        faceDetectionAnalyzer?.stop()
+        requireActivity().fitsSystemWindows(false)
         cameraProvider?.unbindAll()
+        faceDetectionAnalyzer?.stop()
     }
 
     private fun bindAllCameraUseCase() {
