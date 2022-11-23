@@ -3,12 +3,15 @@ package com.ducpv.module.facedetect
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.navigation.ActivityNavigator
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.ducpv.R
 import com.ducpv.base.BaseActivity
 import com.ducpv.databinding.ActivityFaceDetectBinding
+import com.ducpv.extension.gone
+import com.ducpv.extension.show
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -32,6 +35,16 @@ class FaceDetectActivity : BaseActivity<FaceDetectViewModel, ActivityFaceDetectB
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        navController.addOnDestinationChangedListener(destinationChangedListener)
+    }
+
+    private val destinationChangedListener = NavController.OnDestinationChangedListener { _, destination, _ ->
+        if (destination.id == R.id.takeFacePhotoFragment) {
+            binding.toolbar.gone()
+        } else {
+            binding.toolbar.show()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/takeFacePhotoFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/mainFragment">
 
     <fragment
-        android:id="@+id/takeFacePhotoFragment"
-        android:name="com.ducpv.module.facedetect.TakeFacePhotoFragment"
-        android:label="TakeFacePhoto">
-
+        android:id="@+id/mainFragment"
+        android:name="com.ducpv.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_takeFacePhotoFragment_to_previewPhotoFragment"
-            app:destination="@id/previewPhotoFragment"
-            app:enterAnim="@anim/slide_from_right"
-            app:exitAnim="@anim/slide_to_left"
-            app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_to_right"
-            app:popUpTo="@id/takeFacePhotoFragment"
-            app:popUpToInclusive="true" />
-
+            android:id="@+id/action_mainFragment_to_faceDetectActivity"
+            app:destination="@id/faceDetectActivity" />
+        <action
+            android:id="@+id/action_mainFragment_to_composeActivity"
+            app:destination="@id/composeActivity" />
     </fragment>
 
-    <fragment
-        android:id="@+id/previewPhotoFragment"
-        android:name="com.ducpv.module.facedetect.PreviewPhotoFragment"
-        android:label="PreviewPhoto">
+    <activity
+        android:id="@+id/composeActivity"
+        android:name="com.ducpv.compose.ComposeActivity"
+        android:label="composeActivity" />
 
-        <argument
-            android:name="image"
-            app:argType="java.io.File" />
-
-    </fragment>
+    <activity
+        android:id="@+id/faceDetectActivity"
+        android:name="com.ducpv.module.facedetect.FaceDetectActivity"
+        android:label="faceDetectActivity"
+        tools:layout="@layout/activity_face_detect" />
 
 </navigation>

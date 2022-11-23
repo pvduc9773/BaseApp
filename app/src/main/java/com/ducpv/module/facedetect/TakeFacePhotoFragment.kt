@@ -15,10 +15,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ducpv.base.BaseFragment
 import com.ducpv.databinding.FragmentTakeFacePhotoBinding
+import com.ducpv.extension.fitsSystemWindows
+import com.ducpv.extension.isPermissionGranted
+import com.ducpv.extension.showRationaleDialog
 import com.ducpv.module.facedetect.analyzer.FaceDetectionAnalyzer
 import com.ducpv.utils.defaultNavOptions
-import com.ducpv.utils.extension.isPermissionGranted
-import com.ducpv.utils.extension.showRationaleDialog
 import com.ducpv.utils.settingsIntent
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -86,11 +87,13 @@ class TakeFacePhotoFragment : BaseFragment<TakeFacePhotoViewModel, FragmentTakeF
 
     override fun viewBinding() {
         super.viewBinding()
+
         previewView = binding.preview
         viewModel.processCameraProvider.observe(viewLifecycleOwner) { processCameraProvider ->
             cameraProvider = processCameraProvider
             bindAllCameraUseCase()
         }
+
         binding.preview.setOnClickListener {
             captureImage()
         }
@@ -98,13 +101,15 @@ class TakeFacePhotoFragment : BaseFragment<TakeFacePhotoViewModel, FragmentTakeF
 
     override fun onResume() {
         super.onResume()
+        requireActivity().fitsSystemWindows(true)
         bindAllCameraUseCase()
     }
 
     override fun onPause() {
         super.onPause()
-        faceDetectionAnalyzer?.stop()
+        requireActivity().fitsSystemWindows(false)
         cameraProvider?.unbindAll()
+        faceDetectionAnalyzer?.stop()
     }
 
     private fun bindAllCameraUseCase() {
