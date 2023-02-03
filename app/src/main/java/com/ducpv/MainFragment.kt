@@ -17,9 +17,16 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     override fun viewBinding() {
         super.viewBinding()
-        binding.buttonFaceDetect.setOnClickListener {
+
+        binding.btnFaceDetect.setOnClickListener {
             findNavController().navigate(
                 MainFragmentDirections.actionMainFragmentToFaceDetectActivity()
+            )
+        }
+
+        binding.btnJetpackCompose.setOnClickListener {
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToComposeActivity()
             )
         }
     }

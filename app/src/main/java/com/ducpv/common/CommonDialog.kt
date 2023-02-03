@@ -25,11 +25,31 @@ fun MaterialAlertDialogBuilder.setPositiveButton(
     return this
 }
 
+fun MaterialAlertDialogBuilder.setPositiveButton(
+    string: String,
+    onListener: () -> Unit = {}
+): MaterialAlertDialogBuilder {
+    setPositiveButton(string) { _, _ ->
+        onListener()
+    }
+    return this
+}
+
 fun MaterialAlertDialogBuilder.setNegativeButton(
     @StringRes resId: Int,
     onListener: () -> Unit = {}
 ): MaterialAlertDialogBuilder {
     setNegativeButton(resId) { _, _ ->
+        onListener()
+    }
+    return this
+}
+
+fun MaterialAlertDialogBuilder.setNegativeButton(
+    string: String,
+    onListener: () -> Unit = {}
+): MaterialAlertDialogBuilder {
+    setNegativeButton(string) { _, _ ->
         onListener()
     }
     return this

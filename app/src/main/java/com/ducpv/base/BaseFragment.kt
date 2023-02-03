@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.ducpv.utils.extension.hideKeyboard
+import com.ducpv.extension.hideKeyboard
 
 /**
  * Created by pvduc9773 on 25/07/2022.

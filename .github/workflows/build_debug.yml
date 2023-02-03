@@ -1,4 +1,4 @@
-name: Run Deploy Debug App
+name: Workflows Deploy Debug App
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

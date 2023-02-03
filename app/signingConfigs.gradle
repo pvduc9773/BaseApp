@@ -1,14 +1,14 @@
 signingConfigs {
-    debug {
-        storeFile file('keys/debug.jks')
-        storePassword 'demodemo'
-        keyAlias 'debug'
-        keyPassword 'demodemo'
-    }
-    release {
-        storeFile file('keys/release.jks')
-        storePassword 'demodemo'
-        keyAlias 'release'
-        keyPassword 'demodemo'
-    }
+  debug {
+    storeFile file('keys/debug.jks')
+    storePassword 'demodemo'
+    keyAlias 'debug'
+    keyPassword 'demodemo'
+  }
+  release {
+    storeFile file('keys/release.jks')
+    storePassword 'demodemo'
+    keyAlias 'release'
+    keyPassword 'demodemo'
+  }
 }

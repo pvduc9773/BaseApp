@@ -3,9 +3,9 @@ package com.ducpv.di
 import android.content.Context
 import com.ducpv.repository.Repository
 import com.ducpv.repository.RepositoryImpl
-import com.ducpv.repository.preferstore.PrefsDataStoreRepository
-import com.ducpv.repository.preferstore.PrefsDataStoreRepositoryImpl
-import com.ducpv.repository.preferstore.dataStore
+import com.ducpv.preferstore.PrefsDataStoreRepository
+import com.ducpv.preferstore.PrefsDataStoreRepositoryImpl
+import com.ducpv.preferstore.dataStore
 import com.ducpv.service.Service
 import com.google.gson.Gson
 import dagger.Module
